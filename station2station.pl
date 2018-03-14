@@ -1,0 +1,5 @@
+
+
+:- ['tests'], ['definitions'], ['rules'].
+
+:- playGames.
