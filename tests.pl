@@ -1,8 +1,8 @@
 :- write('Loading tests'), nl.
 
-test1(Winner) :-
+test1(Winner, BridgesCrossed) :-
   playerColor(Winner),
-  nl, nl, write('Running test 1'), nl,
+  write('Running test 1'), nl,
   Path = [black, white, black, white, black, white, black, white],
   SuccessBoardState =
   [
@@ -40,4 +40,4 @@ test1(Winner) :-
   ]-(
     lastMove(void)
   ),
-  gameIsWon(Path, SuccessBoardState, Winner).
+  gameIsWon(Path, SuccessBoardState, Winner, BridgesCrossed).

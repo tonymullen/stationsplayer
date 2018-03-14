@@ -4,4 +4,4 @@
 
 :- playGames.
 
-:- bagof(X, test1(X), Xs), write(Xs), nl.
+:- test1(red, Y), nl, write(Y).
