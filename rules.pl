@@ -2,18 +2,24 @@
 
 playGames :-
   write('Playing games'), nl,
-  createPath(X),
-  write(X), nl.
+  createPath(Path),
+  playOrder(Turns),
+  startBoardState(BoardState),
+  playGame(Turns, Winner, Path, BoardState, 20).
 
-playGame(_, _, _, _, 0) :- fail, !.
-playGame(Winner, Path, _Color, [BoardState|_], _Counter) :-
-  gameIsWon(Path, BoardState, Winner),
+playGame(_,_, _, _, _, 0) :- 
+  write("Counter ran out. Nobody won."), !, fail.
+playGame(_Turns, Winner, Path, [BoardState|_], _Counter) :-
+  gameIsWon(Path, BoardState, Winner, BridgesCrossed),
   writeBoard(BoardState).
-playGame(Winner, Path, Color, [BoardState|History], Counter) :-
+playGame([Color|Nexts], Winner, Path, [BoardState|History], Counter) :-
   makeMove(Color, BoardState, NewBoardState),
-  nextTurn(Color, NextColor),
+  rotateList([Color|Nexts], NewNexts),
   CounterDec is Counter - 1, 
-  playGame(Winner, Path, NextColor, [NewBoardState, BoardState|History], CounterDec).
+  playGame(NewNexts, Winner, Path, [NewBoardState, BoardState|History], CounterDec).
+
+
+
 
 gameIsWon(Path, BoardState, Winner, BridgesCrossed) :-
   playerColor(Winner),
@@ -56,3 +62,6 @@ createPath([X1, X2, X3, X4, X5, X6, X7, X8]) :-
   random_permutation(
     [P1, P2, P3, P4, P5, P6, P7, P8], 
     [X1, X2, X3, X4, X5, X6, X7, X8]).
+
+rotateList([H|T], List) :-
+  append(T, [H], List).

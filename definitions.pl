@@ -13,6 +13,8 @@ playerColor(green).
 playerColor(blue).
 playerColor(yellow).
 
+playOrder([green, red, blue, yellow]).
+
 pathColor(black).
 pathColor(white).
 
